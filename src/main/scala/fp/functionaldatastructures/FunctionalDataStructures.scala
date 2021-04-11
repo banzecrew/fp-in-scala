@@ -50,4 +50,10 @@ object List {
       case Cons(_, xs) => drop(xs, n - 1)
       case _           => Nil
     }
+
+  //3.5[X]
+  def dropWhile[A](l: List[A], f: A => Boolean): List[A] = l match {
+    case Cons(x, xs) if (f(x)) => dropWhile(xs, f)
+    case _                     => l
+  }
 }
