@@ -4,7 +4,7 @@ import scala.annotation.tailrec
 
 object GettingsStarted {
 
-  //2.1
+  //2.1[ ]
   def fib(n: Int): Int = {
     @tailrec
     def go(n: Int, prev: Int, next: Int): Int =
@@ -14,7 +14,7 @@ object GettingsStarted {
     go(n, 0, 1)
   }
 
-  //2.2
+  //2.2[X]
   def isSorted[A](as: Array[A], ordered: (A,A) => Boolean): Boolean = {
     @tailrec
     def loop(n: Int): Boolean =
@@ -24,4 +24,8 @@ object GettingsStarted {
 
     loop(0)
   }
+
+  //2.3[X]
+  def curry[A,B,C](f: (A, B) => C): A => (B => C) =
+    a => b => f(a, b)
 }
