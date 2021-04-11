@@ -1,5 +1,7 @@
 package fp.functionaldatastructures
 
+import scala.annotation.tailrec
+
 
 sealed trait List[+A]
 case class Cons[+A](x: A, xs: List[A]) extends List[A]
@@ -55,5 +57,17 @@ object List {
   def dropWhile[A](l: List[A], f: A => Boolean): List[A] = l match {
     case Cons(x, xs) if (f(x)) => dropWhile(xs, f)
     case _                     => l
+  }
+
+  def append[A](a1: List[A], a2: List[A]): List[A] = a1 match {
+    case Nil => a2
+    case Cons(h, t) => Cons(h, append(t, a2))
+  }
+
+  //3.6[X]
+  def init[A](l: List[A]): List[A] = l match {
+    case Cons(x, Nil) => Nil
+    case Cons(x, xs) => Cons(x, init(xs))
+    case Nil => l
   }
 }
