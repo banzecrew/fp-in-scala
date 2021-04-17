@@ -92,5 +92,9 @@ object List {
   /**
     * We get back our source list
     */
+
+  //3.9[X]
+  def length[A](as: List[A]): Int =
+    foldRight(as, 0)((_, ac) => ac + 1)
     
 }
