@@ -70,4 +70,27 @@ object List {
     case Cons(x, xs) => Cons(x, init(xs))
     case Nil => l
   }
+
+  def foldRight[A, B](as: List[A], z: B)(f: (A, B) => B): B = as match {
+    case Cons(x, xs) => f(x, foldRight(xs, z)(f))
+    case Nil => z
+  }
+
+  def sum2(xs: List[Int]): Int =
+    foldRight(xs, 0)(_ + _)
+
+  def product2(xs: List[Double]): Double =
+    foldRight(xs, 1.0)(_ * _)
+
+  //3.7[X]
+  /**
+    * No, because foldRight traverse all elements
+    * before they(elements) will be calculated
+    */
+
+  //3.8[X]
+  /**
+    * We get back our source list
+    */
+    
 }
