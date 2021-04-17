@@ -96,5 +96,15 @@ object List {
   //3.9[X]
   def length[A](as: List[A]): Int =
     foldRight(as, 0)((_, ac) => ac + 1)
+
+  //3.10[X]
+  def foldLeft[A,B](as: List[A], z: B)(f: (B, A) => B): B = {
+    @tailrec
+    def loop(xs: List[A], zz: B): B = xs match {
+      case Cons(h, t) => loop(t, f(zz, h))
+      case Nil => zz
+    }
+    loop(as, z)
+  }
     
 }
