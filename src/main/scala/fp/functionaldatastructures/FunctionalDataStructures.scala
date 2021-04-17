@@ -113,5 +113,16 @@ object List {
   def foldLeftProduct(xs: List[Double]): Double =
     foldLeft(xs, 1: Double)(_ * _)
 
-    
+  //3.12[X]
+  def reverse[A](xs: List[A]): List[A] = {
+    @tailrec
+    def loop(xss: List[A], ac: List[A]): List[A] = xss match {
+      case Cons(h, t) => loop(t, Cons(h, ac))
+      case _ => ac
+    }
+    loop(xs, Nil)
+  }
+  def foldLeftReverse[A](xs: List[A]): List[A] =
+    foldLeft(xs, List[A]())((ac, v) => Cons(v, ac))
+
 }
