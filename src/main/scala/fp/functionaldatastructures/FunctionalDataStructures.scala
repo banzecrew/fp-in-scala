@@ -106,5 +106,12 @@ object List {
     }
     loop(as, z)
   }
+
+  //3.11[X]
+  def foldLeftSum(xs: List[Int]): Int =
+    foldLeft(xs, 0)(_ + _)
+  def foldLeftProduct(xs: List[Double]): Double =
+    foldLeft(xs, 1: Double)(_ * _)
+
     
 }
