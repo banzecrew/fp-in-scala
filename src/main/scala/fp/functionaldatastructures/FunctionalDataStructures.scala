@@ -158,4 +158,8 @@ object List {
   //3.17[X]
   def asString(xs: List[Double]): List[String] =
     foldRight(xs, Nil:List[String])((v, ac) => Cons(s"$v", ac))
+
+  //3.18[X]
+  def map[A,B](as: List[A])(f: A => B): List[B] =
+    foldRight(as, Nil:List[B])((v, ac) => Cons(f(v), ac))
 }
