@@ -187,4 +187,15 @@ object List {
     case (Cons(h1, t1), Cons(h2, t2)) => Cons(f(h1, h2), zipWith(t1, t2)(f))
     case _                            => Nil
   }
+
+  //3.24[X]
+  @tailrec
+  def hasSubsequence[A](sup: List[A], sub: List[A]): Boolean = (sup, sub) match {
+    case (Cons(h1, t1), Cons(h2, Nil)) => (h1 == h2)
+    case (Cons(h1, t1), Cons(h2, t2)) =>
+      if (h1 == h2) hasSubsequence(t1, t2)
+      else hasSubsequence(t1, sub)
+    case (_, Nil) => true
+    case (Nil, Cons(h, t)) => false
+  }
 }
