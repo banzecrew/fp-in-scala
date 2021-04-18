@@ -137,5 +137,18 @@ object List {
 
   //3.14[X]
   def appendViaFoldRight[A](a1: List[A], a2: List[A]): List[A] =
-    foldRight(a1, a2)((v, ac) => Cons(v, ac))
+    foldRight(a1, a2)(Cons(_, _))
+
+  //3.15[X]
+  def concat[A](xs: List[List[A]]): List[A] = {
+    @tailrec
+    def loop(ll: List[List[A]], ac: List[A]): List[A] = ll match {
+      case Cons(hh, tt) => loop(tt, append(ac, hh))
+      case Nil          => ac
+    }
+    loop(xs, Nil)
+  }
+  def concat2[A](xs: List[List[A]]): List[A] =
+    foldLeft(xs, List[A]())(append)
+  
 }
