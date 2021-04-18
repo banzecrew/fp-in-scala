@@ -154,4 +154,8 @@ object List {
   //3.16[X]
   def inc(xs: List[Int]): List[Int] =
     foldRight(xs, Nil:List[Int])((v, ac) => Cons(v + 1, ac))
+
+  //3.17[X]
+  def asString(xs: List[Double]): List[String] =
+    foldRight(xs, Nil:List[String])((v, ac) => Cons(s"$v", ac))
 }
