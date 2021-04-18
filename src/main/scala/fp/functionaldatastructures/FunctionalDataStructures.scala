@@ -150,5 +150,8 @@ object List {
   }
   def concat2[A](xs: List[List[A]]): List[A] =
     foldLeft(xs, List[A]())(append)
-  
+
+  //3.16[X]
+  def inc(xs: List[Int]): List[Int] =
+    foldRight(xs, Nil:List[Int])((v, ac) => Cons(v + 1, ac))
 }
