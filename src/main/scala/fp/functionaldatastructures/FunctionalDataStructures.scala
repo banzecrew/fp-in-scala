@@ -203,11 +203,17 @@ object List {
 sealed trait Tree[+A]
 case class Leaf[A](value: A) extends Tree[A]
 case class Branch[A](left: Tree[A], right: Tree[A]) extends Tree[A]
-object Tree {
 
+object Tree {
   //3.25[X]
   def size[A](t: Tree[A]): Int = t match {
     case Leaf(value) => 1
     case Branch(l, r) => size(l) + size(r) + 1
+  }
+
+  //3.26[X]
+  def maximum[A](t: Tree[A]): Tree[A] = t match {
+    case Leaf(v) => v
+    case Branch(l, r) => maximum(l) max maximum(r)
   }
 }
