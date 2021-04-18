@@ -134,4 +134,8 @@ object List {
 
   def foldLeftViaFoldRight[A,B](xs: List[A], z: B)(f: (B,A) => B): B =
     foldRight(xs, (b:B) => b)((v, g) => b => g(f(b,v)))(z)
+
+  //3.14[X]
+  def appendViaFoldRight[A](a1: List[A], a2: List[A]): List[A] =
+    foldRight(a1, a2)((v, ac) => Cons(v, ac))
 }
