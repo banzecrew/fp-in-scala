@@ -170,4 +170,8 @@ object List {
   //3.20[X]
   def flatMap[A,B](as: List[A])(f: A => List[B]): List[B] =
     concat(map(as)(f))
+
+  //3.21[X]
+  def filterViaFlatMap[A](as: List[A])(f: A => Boolean): List[A] =
+    flatMap(as)(x => if (f(x)) List(x) else Nil)
 }
