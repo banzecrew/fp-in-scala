@@ -174,4 +174,12 @@ object List {
   //3.21[X]
   def filterViaFlatMap[A](as: List[A])(f: A => Boolean): List[A] =
     flatMap(as)(x => if (f(x)) List(x) else Nil)
+
+  //3.22[X]
+  def sum(xs: List[Int], ys: List[Int]): List[Int] = (xs, ys) match {
+    case (Cons(h1, t1), Cons(h2, t2)) => Cons(h1 + h2, sum(t1, t2))
+    case (_, Nil)                     => xs
+    case (Nil, _)                     => ys
+    case _                            => Nil
+  }
 }
