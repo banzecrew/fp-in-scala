@@ -166,4 +166,8 @@ object List {
   //3.19[X]
   def filter[A](as: List[A])(f: A => Boolean): List[A] =
     foldRight(as, Nil:List[A])((v, ac) => if (f(v)) Cons(v, ac) else ac)
+
+  //3.20[X]
+  def flatMap[A,B](as: List[A])(f: A => List[B]): List[B] =
+    concat(map(as)(f))
 }
