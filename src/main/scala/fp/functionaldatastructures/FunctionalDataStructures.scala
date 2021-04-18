@@ -180,6 +180,11 @@ object List {
     case (Cons(h1, t1), Cons(h2, t2)) => Cons(h1 + h2, sum(t1, t2))
     case (_, Nil)                     => xs
     case (Nil, _)                     => ys
+  }
+  
+  //3.23[X]
+  def zipWith[A, B, C](xs: List[A], ys: List[B])(f: (A, B) => C): List[C] = (xs, ys) match {
+    case (Cons(h1, t1), Cons(h2, t2)) => Cons(f(h1, h2), zipWith(t1, t2)(f))
     case _                            => Nil
   }
 }
