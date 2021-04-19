@@ -207,12 +207,12 @@ case class Branch[A](left: Tree[A], right: Tree[A]) extends Tree[A]
 object Tree {
   //3.25[X]
   def size[A](t: Tree[A]): Int = t match {
-    case Leaf(value) => 1
+    case Leaf(v) => 1
     case Branch(l, r) => size(l) + size(r) + 1
   }
 
   //3.26[X]
-  def maximum[A](t: Tree[A]): Tree[A] = t match {
+  def maximum[A](t: Tree[Int]): Int = t match {
     case Leaf(v) => v
     case Branch(l, r) => maximum(l) max maximum(r)
   }
@@ -221,5 +221,11 @@ object Tree {
   def depth[A](t: Tree[A]): Int = t match {
     case Leaf(v) => 0
     case Branch(l, r) => 1 + (depth(l) max depth(r))
+  }
+
+  //3.28[X]
+  def map[A, B](t: Tree[A])(f: A => B): Tree[B] = t match {
+    case Leaf(v) => Leaf(f(v))
+    case Branch(l, r) => Branch(map(l)(f), map(r)(f))
   }
 }
