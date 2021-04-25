@@ -62,6 +62,12 @@ object Option {
     case (Some(v1), Some(v2)) => Some(f(v1, v2))
     case _                    => None
   }
+
+  //4.4[X]
+  def sequence[A](a: List[Option[A]]): Option[List[A]] = a match {
+    case h :: t => h flatMap (hh => sequence(t) map (hh :: _))
+    case Nil    => Some(Nil)
+  }
 }
 case class Some[+A](get: A) extends Option[A]
 case object None extends Option[Nothing]
