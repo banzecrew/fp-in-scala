@@ -34,6 +34,34 @@ object Option {
   //4.2[X]
   def variance(xs: Seq[Double]): Option[Double] =
     mean(xs) flatMap (m => mean(xs.map(x => math.pow(x - m, 2))))
+
+  def lift[A, B](f: A => B): Option[A] => Option[B] = _ map f
+  
+  val abs0: Option[Double] => Option[Double] = lift(math.abs)
+
+  /**
+  * Top secret formula for computing an annual car
+  * insurance premium from two key factors.
+  */
+  def insuranceRateQuote(age: Int, numberOfSpeedingTickets: Int): Double = ???
+
+  def parseInsuranceRateQuote(
+    age: String,
+    numberOfSpeedingTickets: String): Option[Double] = {
+      val optAge: Option[Int] = Try(age.toInt)
+      val optTickets: Option[Int] = Try(numberOfSpeedingTickets.toInt)
+      map2(optAge, optTickets)(insuranceRateQuote)
+    }
+
+  def Try[A](a: => A): Option[A] =
+    try Some(a)
+    catch { case e: Exception => None }
+
+  //4.3[X]
+  def map2[A,B,C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = (a, b) match {
+    case (Some(v1), Some(v2)) => Some(f(v1, v2))
+    case _                    => None
+  }
 }
 case class Some[+A](get: A) extends Option[A]
 case object None extends Option[Nothing]
