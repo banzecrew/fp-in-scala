@@ -1,6 +1,6 @@
 package fp.handlingerrorswithoutexceptions
 
-import scala.{Option => _, Either => _, _}
+import scala.{Option => _}
 
 
 sealed trait Option[+A] {
@@ -83,6 +83,13 @@ object Option {
     case h :: t => map2(f(h), traverse2(t)(f))(_ :: _)
     case Nil => Some(Nil)
   }
+
+  def map2_2[A,B,C](a: Option[A], b: Option[B])(f: (A, B) => C):
+    Option[C] =
+      for {
+        aa <- a
+        bb <- b
+      } yield f(aa, bb)
 }
 case class Some[+A](get: A) extends Option[A]
 case object None extends Option[Nothing]
