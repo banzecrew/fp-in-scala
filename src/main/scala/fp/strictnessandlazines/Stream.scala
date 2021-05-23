@@ -45,6 +45,10 @@ sealed trait Stream[+A] {
   //5.4[X]
   def forAll(p: A => Boolean): Boolean =
     foldRight(true)((a, b) => p(a) && b)
+
+  //5.5[X]
+  def takeWhileViaFoldRight(p: A => Boolean): Stream[A] =
+    foldRight(this)((a, b) => if (p(a)) Stream.cons(a, b) else Empty)
 }
 case object Empty extends Stream[Nothing]
 case class Cons[+A](h: () => A, t: () => Stream[A]) extends Stream[A]
