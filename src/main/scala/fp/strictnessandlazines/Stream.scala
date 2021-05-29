@@ -49,6 +49,11 @@ sealed trait Stream[+A] {
   //5.5[X]
   def takeWhileViaFoldRight(p: A => Boolean): Stream[A] =
     foldRight(this)((a, b) => if (p(a)) Stream.cons(a, b) else Empty)
+
+  //5.6[X]
+  def headOptionViaFoldRight: Option[A] = 
+    foldRight(None: Option[A])((h, _) => Some(h))
+
 }
 case object Empty extends Stream[Nothing]
 case class Cons[+A](h: () => A, t: () => Stream[A]) extends Stream[A]
