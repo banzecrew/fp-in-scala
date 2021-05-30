@@ -96,4 +96,11 @@ object Stream {
   //5.9[X]
   def from(n: Int): Stream[Int] =
     cons(n, from(n + 1))
+
+  //5.10[X]
+  def fibs: Stream[Int] = {
+    def f(fib1: Int, fib2: Int): Stream[Int] =
+      cons(fib1, f(fib2, fib1 + fib2))
+    f(0, 1)
+  }
 }
