@@ -1,5 +1,7 @@
 package fp.strictnessandlazines
 
+import scala.collection.immutable
+
 sealed trait Stream[+A] {
   def headOption: Option[A] = this match {
     case Empty => None
@@ -54,6 +56,18 @@ sealed trait Stream[+A] {
   def headOptionViaFoldRight: Option[A] = 
     foldRight(None: Option[A])((h, _) => Some(h))
 
+  //5.7[X]
+  def map[B](f: A => B): Stream[B] =
+    foldRight(Empty: Stream[B])((a, b) => Stream.cons(f(a), b))
+
+  def filter(f: A => Boolean): Stream[A] =
+    foldRight(Stream.empty[A])((a, b) => if (f(a)) Stream.cons(a, b) else b)
+
+  def append[B>:A](xs: => Stream[B]): Stream[B] =
+    foldRight(xs)((a, b) => Stream.cons(a, b))
+
+  def flatMap[B](f: A => Stream[B]): Stream[B] =
+    foldRight(Stream.empty[B])((a, b) => f(a).append(b))
 }
 case object Empty extends Stream[Nothing]
 case class Cons[+A](h: () => A, t: () => Stream[A]) extends Stream[A]
