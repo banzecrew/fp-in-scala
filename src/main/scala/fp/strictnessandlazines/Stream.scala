@@ -103,4 +103,10 @@ object Stream {
       cons(fib1, f(fib2, fib1 + fib2))
     f(0, 1)
   }
+
+  //5.11[X]
+  def unfold[A, S](z: S)(f: S => Option[(A, S)]): Stream[A] = f(z) match {
+    case Some((h, t)) => cons(h, unfold(t)(f))
+    case None => empty
+  }
 }
